@@ -13,17 +13,37 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+
 public class WebSocketActivity extends AppCompatActivity {
 
     private TextView tvOutput;
 
     private static final int NORMAL_CLOSURE_STATUS = 1000;
 
+    public class Identifier {
+        String channel;
+//        int userId;
+//        int roomId;
+    };
+
+    public class Subscription {
+        String command;
+        Identifier identifier;
+        Subscription() {
+        }
+    };
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvOutput = findViewById(R.id.output);
+
 
 
         // WebSocket
@@ -49,12 +69,27 @@ public class WebSocketActivity extends AppCompatActivity {
     private final class EchoWebSocketListener extends WebSocketListener {
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
+
             output("WebSocket connected to ws://sockets.nxtstepdsgn.com/cable");
             output("Actively listening to sockets.nxtstepdsgn.com for WebSocket traffic");
             output("Sending test echo message");
             String json = "{\"type\":\"chat\",\"message\":\"im online, whats up\"}";
-            output("Tx: " + json);
-            webSocket.send(json);
+
+            Identifier identifier = new Identifier();
+            identifier.channel = "MessagesChannel";
+//            identifier.userId = 1;
+//            identifier.roomId = 1;
+
+            Subscription subscription = new Subscription();
+            subscription.command = "subscribe";
+            subscription.identifier = identifier;
+
+            Gson gson = new Gson();
+            String subscriptionJson = gson.toJson(subscription);
+
+            output("Tx: " + subscriptionJson);
+
+            webSocket.send(subscriptionJson);
         }
 
         @Override
