@@ -27,7 +27,7 @@ public class WebSocketActivity extends AppCompatActivity {
 
 
         // WebSocket
-        Request request = new Request.Builder().url("ws://10.0.2.2:8080/websocket/chat").build();
+        Request request = new Request.Builder().url("ws://sockets.nxtstepdsgn.com/cable").build();
         EchoWebSocketListener listener = new EchoWebSocketListener();
         OkHttpClient okHttpClient = new OkHttpClient();
         final WebSocket webSocket = okHttpClient.newWebSocket(request, listener);
@@ -49,8 +49,8 @@ public class WebSocketActivity extends AppCompatActivity {
     private final class EchoWebSocketListener extends WebSocketListener {
         @Override
         public void onOpen(WebSocket webSocket, Response response) {
-            output("WebSocket connected to ws://10.0.2.2:8080/websocket/chat");
-            output("Actively listening to localhost port 8080 for WebSocket traffic");
+            output("WebSocket connected to ws://sockets.nxtstepdsgn.com/cable");
+            output("Actively listening to sockets.nxtstepdsgn.com for WebSocket traffic");
             output("Sending test echo message");
             String json = "{\"type\":\"chat\",\"message\":\"im online, whats up\"}";
             output("Tx: " + json);
