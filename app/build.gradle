@@ -39,4 +39,6 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.9.1'
     // Server sent events
     compile 'com.github.heremaps:oksse:master-SNAPSHOT'
+
+    compile 'com.github.hosopy:actioncable-client-java:0.1.2'
 }

@@ -25,7 +25,7 @@ import com.hosopy.actioncable.Channel;
 import com.hosopy.actioncable.Consumer;
 import com.hosopy.actioncable.Subscription;
 
-public class WebSocketActivity extends AppCompatActivity {
+public class LegacyWebSocketActivity extends AppCompatActivity {
 
     private TextView tvOutput;
 
@@ -42,7 +42,6 @@ public class WebSocketActivity extends AppCompatActivity {
         tvOutput = findViewById(R.id.output);
 
 
-        setupConection();
 
         // WebSocket
         Request request = new Request.Builder().url("ws://sockets.nxtstepdsgn.com/cable").build();
